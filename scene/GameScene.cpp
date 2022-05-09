@@ -6,6 +6,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete model_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -16,12 +17,14 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");//ファイル名を指定してテクスチャを読み込む
 	model_ = Model::Create();//3Dモデルの生成
-	
+	debugCamera_ = new DebugCamera(1280, 720);
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+	debugCamera_->Update();//デバッグカメラの更新
+}
 
 void GameScene::Draw() {
 
@@ -50,8 +53,8 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	model_->Draw(worldTransform_,viewProjection_,textureHandle_);//3Dモデル描画
-
+	//model_->Draw(worldTransform_,viewProjection_,textureHandle_);//3Dモデル描画
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
