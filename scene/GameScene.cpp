@@ -64,9 +64,16 @@ void GameScene::Draw() {
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(0,10,0),Vector3(0,-10,0),Vector4(0,0,100,100));//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(-10, 10, 0), Vector3(-10, -10, 0), Vector4(0, 0, 100, 100));
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 10, 0), Vector3(10, -10, 0), Vector4(0, 0, 100, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(5, 10, 0), Vector3(5, -10, 0), Vector4(0, 0, 100, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(-5, 10, 0), Vector3(-5, -10, 0), Vector4(0, 0, 100, 100));
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 0, 0), Vector3(-10, 0, 0), Vector4(100, 0, 0, 100));
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 10, 0), Vector3(-10, 10, 0), Vector4(100, 0, 0, 100));
+
+
+
 	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, -10, 0), Vector3(-10, -10, 0), Vector4(100, 0, 0, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 5, 0), Vector3(-10, 5, 0), Vector4(100, 0, 0, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, -5, 0), Vector3(-10, -5, 0), Vector4(100, 0, 0, 100));
 	Model::PostDraw();// 3Dオブジェクト描画後処理																									
 #pragma endregion
 
