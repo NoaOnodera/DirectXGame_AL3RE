@@ -1,6 +1,7 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include "AxisIndicator.h"
+#include "PrimitiveDrawer.h"
 #include <cassert>
 
 GameScene::GameScene() {}
@@ -22,6 +23,7 @@ void GameScene::Initialize() {
 	AxisIndicator::GetInstance()->SetVisible(true);//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
 
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 }
@@ -59,9 +61,13 @@ void GameScene::Draw() {
 
 	//model_->Draw(worldTransform_,viewProjection_,textureHandle_);//3Dモデル描画
 	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
-
-	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(0,10,0),Vector3(0,-10,0),Vector4(0,0,100,100));//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(-10, 10, 0), Vector3(-10, -10, 0), Vector4(0, 0, 100, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 10, 0), Vector3(10, -10, 0), Vector4(0, 0, 100, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 0, 0), Vector3(-10, 0, 0), Vector4(100, 0, 0, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, 10, 0), Vector3(-10, 10, 0), Vector4(100, 0, 0, 100));
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3(10, -10, 0), Vector3(-10, -10, 0), Vector4(100, 0, 0, 100));
+	Model::PostDraw();// 3Dオブジェクト描画後処理																									
 #pragma endregion
 
 #pragma region 前景スプライト描画
