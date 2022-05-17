@@ -27,28 +27,37 @@ void GameScene::Initialize() {
 	worldTransform_.rotation_ = { 0.0f,0.0f,1.0f };//x,y,z軸の周りの回転角を設定
 	worldTransform_.rotation_ = { 1.0f,0.0f,0.0f };
 	worldTransform_.rotation_ = { 0.0f,1.0f,0.0f };
+	worldTransform_.translation_ = { 0.0f,0.0f,0.0f };
 	Matrix4 matScale;//スケーリング行列を宣言
 	Matrix4 matRotZ;//Z軸回転行列を宣言
 	Matrix4 matRotX;//X軸回転行列を宣言
 	Matrix4 matRotY;//Y軸回転行列を宣言
+	Matrix4 matTrans = MathUtility::Matrix4Identity();
+
 	//スケーリング倍率を行列に設定する
-	matScale.m[0][0] =worldTransform_.scale_.x;
-	matScale.m[0][1] = worldTransform_.scale_.y;
-	matScale.m[1][1] = worldTransform_.scale_.z;
+	matScale.m[0][0] =sin(worldTransform_.scale_.x);
+	//matScale.m[0][1] = worldTransform_.scale_.y;
+	//matScale.m[1][1] = worldTransform_.scale_.z;
 	//Z軸回転行列の各要素を設定する
-	matRotZ.m[0][0] = worldTransform_.rotation_.x;
-	matRotZ.m[0][1] = worldTransform_.rotation_.y;
-	matRotZ.m[1][0] = worldTransform_.rotation_.z;
+	//matRotZ.m[0][0] = worldTransform_.rotation_.x;
+	//matRotZ.m[0][1] = worldTransform_.rotation_.y;
+	matRotZ.m[0][0] = cos(worldTransform_.rotation_.z);
 	
     //X軸回転行列の各要素を設定する
 	matRotX.m[0][0] = worldTransform_.rotation_.x;
-	matRotX.m[0][1] = worldTransform_.rotation_.y;
-	matRotX.m[1][0] = worldTransform_.rotation_.z;
+	//matRotX.m[0][1] = worldTransform_.rotation_.y;
+	//matRotX.m[1][0] = worldTransform_.rotation_.z;
 
 	//Y軸回転行列の各要素を設定する
-	matRotY.m[0][0] = worldTransform_.rotation_.x;
+	//matRotY.m[0][0] = worldTransform_.rotation_.x;
 	matRotY.m[0][1] = worldTransform_.rotation_.y;
-	matRotY.m[1][0] = worldTransform_.rotation_.z;
+	//matRotY.m[1][0] = worldTransform_.rotation_.z;
+	
+	//移動量を行列に設定する
+   
+	matTrans.m[0][0] = worldTransform_.translation_.y;
+	
+
 
 	worldTransform_.matWorld_ = matScale;//単位行列を代入
     worldTransform_.matWorld_*=matScale;//掛け算
@@ -63,11 +72,11 @@ void GameScene::Initialize() {
 	worldTransform_.matWorld_ *= matRotY;//掛け算
 
 
+	worldTransform_.matWorld_ = matTrans;
+	worldTransform_.matWorld_ *= matTrans;
 
 
-	worldTransform_.TransferMatrix();
-	worldTransform_.TransferMatrix();
-	worldTransform_.TransferMatrix();
+	
 	worldTransform_.TransferMatrix();//行列の転送
 	//PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
