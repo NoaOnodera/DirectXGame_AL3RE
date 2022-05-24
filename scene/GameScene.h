@@ -49,7 +49,7 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	uint32_t textureHandle_ = 0;//テクスチャハンドル
 	Model* model_ = nullptr;//3Dモデル
-	WorldTransform worldTransform_;//ワールドトランスフォーム
+	WorldTransform worldTransforms_[100];//ワールドトランスフォーム
 	ViewProjection viewProjection_;//ビュープロジェクション
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
 
