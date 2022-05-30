@@ -52,7 +52,7 @@ class GameScene {
 	WorldTransform worldTransforms_[100];//ワールドトランスフォーム
 	ViewProjection viewProjection_;//ビュープロジェクション
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
-
+	float viewAngle = 0.0f;//カメラ上方向の角度
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
