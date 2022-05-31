@@ -4,7 +4,7 @@
 #include <cassert>
 #include <random>
 #include <DirectXMath.h>
-
+//#include "MyMath.h"
 
 
 GameScene::GameScene() {}
@@ -255,7 +255,7 @@ void GameScene::Update() {
 
 
 	for (WorldTransform& worldTransform : worldTransforms_) {
-		worldTransforms_[PartId::kNumPartId].;
+		
 
 			worldTransform.TransferMatrix();
 	}

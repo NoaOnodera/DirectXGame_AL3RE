@@ -98,6 +98,7 @@
     <ClCompile Include="base\TextureManager.cpp" />
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyMath.cpp" />
     <ClCompile Include="scene\GameScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +128,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="MyMath.h" />
     <ClInclude Include="scene\GameScene.h" />
   </ItemGroup>
   <ItemGroup>

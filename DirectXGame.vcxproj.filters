@@ -66,6 +66,9 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
+    <ClCompile Include="MyMath.cpp">
+      <Filter>ソース ファイル\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="3d\PrimitiveDrawer.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMath.h">
+      <Filter>ヘッダー ファイル\scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

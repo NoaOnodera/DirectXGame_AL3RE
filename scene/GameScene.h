@@ -53,7 +53,7 @@ class GameScene {
 	WorldTransform worldTransforms_[100];//ワールドトランスフォーム
 	ViewProjection viewProjection_;//ビュープロジェクション
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
-	
+	MyMath* myMath_ = nullptr;
 
 public:
 	enum PartId {
