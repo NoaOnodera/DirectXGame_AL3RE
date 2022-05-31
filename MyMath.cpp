@@ -1,10 +1,11 @@
 #include "MyMath.h"
 
 //コンストラクタ
-MyMath::MyMath()[]
+MyMath::MyMath(){}
 
 //デストラクタ-
-MyMath::~MyMath()[]
+MyMath::~MyMath() {
+}
 
 
 //メンバ関数

@@ -10,7 +10,7 @@
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete model_;
+	
 	delete debugCamera_;
 }
 
@@ -257,7 +257,8 @@ void GameScene::Update() {
 	for (WorldTransform& worldTransform : worldTransforms_) {
 		
 
-			worldTransform.TransferMatrix();
+
+		worldTransform.TransferMatrix();
 	}
 	//worldTransforms_[PartId::kRoot].translation_.y += move.y;
 	//orldTransforms_[PartId::kRoot].translation_.z += move.z;
@@ -290,7 +291,8 @@ void GameScene::Update() {
 	debugText_->Printf("nearZ:%f", DirectX::XMConvertToDegrees(viewProjection_.nearZ));
 
 
-	worldTransforms_[PartId::kRoot].UpdateMatrix();
+
+	/*worldTransforms_[PartId::kRoot].UpdateMatrix();
 	worldTransforms_[PartId::kSpine].UpdateMatrix();
 
 	worldTransforms_[PartId::kChest].UpdateMatrix();
@@ -299,7 +301,7 @@ void GameScene::Update() {
 	worldTransforms_[PartId::kArmR].UpdateMatrix();
 	worldTransforms_[PartId::kHip].UpdateMatrix();
 	worldTransforms_[PartId::kLegL].UpdateMatrix();
-	worldTransforms_[PartId::kLegR].UpdateMatrix();
+	worldTransforms_[PartId::kLegR].UpdateMatrix();*/
 
 }
 
