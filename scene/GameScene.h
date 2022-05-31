@@ -10,7 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
-
+#include <DirectXMath.h>
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -49,10 +49,25 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	uint32_t textureHandle_ = 0;//テクスチャハンドル
 	Model* model_ = nullptr;//3Dモデル
+	float viewAngle = 0.0f;//カメラ上方向の角度
 	WorldTransform worldTransforms_[100];//ワールドトランスフォーム
 	ViewProjection viewProjection_;//ビュープロジェクション
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
-	float viewAngle = 0.0f;//カメラ上方向の角度
+	
+
+public:
+	enum PartId {
+		kRoot,
+		kSpine,
+		kChest,
+		kHead,
+		kArmL,
+        kArmR,
+		kHip,
+		kLegL,
+		kLegR,
+		kNumPartId
+	};
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
