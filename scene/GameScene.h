@@ -11,6 +11,7 @@
 #include "WorldTransform.h"
 #include "DebugCamera.h"
 #include <DirectXMath.h>
+#include"MyMath.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -57,15 +58,17 @@ class GameScene {
 
 public:
 	enum PartId {
-		kRoot,
-		kSpine,
-		kChest,
-		kHead,
-		kArmL,
-        kArmR,
-		kHip,
-		kLegL,
-		kLegR,
+		kRoot,//大元
+		kSpine,//脊椎
+		kChest,//胸
+		kHead,//頭
+		kArmL,//左腕
+        kArmR,//右腕
+		kHip,//尻
+		kLegL,//左足
+		kLegR,//右足
+
+
 		kNumPartId
 	};
 	/// <summary>

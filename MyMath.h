@@ -4,6 +4,7 @@
 /// </summary>
 
 class MyMath {
+public:
 	//コンストラクタ
 	MyMath();
 	//デストラクター

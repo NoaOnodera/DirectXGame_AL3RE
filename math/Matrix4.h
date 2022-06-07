@@ -18,4 +18,26 @@ class Matrix4 {
 
 	// 代入演算子オーバーロード
 	Matrix4& operator*=(const Matrix4& m2);
+
+	//単位行列の関数
+	Matrix4 CreateIdentityMatrix()
+	{
+		Matrix4 Mat;
+
+		Mat.m[0][0] = 1; Mat.m[0][1] = 0; Mat.m[0][2] = 0; Mat.m[0][3] = 0;
+		Mat.m[1][0] = 0; Mat.m[1][1] = 1; Mat.m[1][2] = 0; Mat.m[1][3] = 0;
+		Mat.m[2][0] = 0; Mat.m[2][1] = 0; Mat.m[2][2] = 1; Mat.m[2][3] = 0;
+		Mat.m[3][0] = 0; Mat.m[3][1] = 0; Mat.m[3][2] = 0; Mat.m[3][3] = 1;
+	
+		return Mat;
+	
+	}
+
+	void IndentityMatrix()
+	{
+		m[0][0] = 1; m[0][1] = 0; m[0][2] = 0; m[0][3] = 0;
+		m[1][0] = 0; m[1][1] = 1; m[1][2] = 0; m[1][3] = 0;
+		m[2][0] = 0; m[2][1] = 0; m[2][2] = 1; m[2][3] = 0;
+		m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
+	}
 };
