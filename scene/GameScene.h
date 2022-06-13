@@ -10,7 +10,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "DebugCamera.h"
-#include "player.h"
+#include "Player.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>

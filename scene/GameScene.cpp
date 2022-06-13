@@ -1,7 +1,7 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include "player.h"
+#include "Player.h"
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -23,7 +23,7 @@ void GameScene::Initialize() {
     //自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
-	player_->Initialinze();
+	player_->Initialize(Model * model, uint32_t textureHandle);
 
 }
 
