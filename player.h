@@ -1,12 +1,23 @@
 #pragma once
 #include "GameScene.h"
-
+#include "WorldTransform.h"
+#include "Model.h"
+#include "Input.h" 
+#include "WorldTransform.h"
+#include "ViewProjection.h"
+#include"TextureManager.h"
+#include "VectorMove.h"
+#include "MyMath.h"
 
 class Player {
 public:
+
+
+	 Player();
+    ~Player();
 	void Initialize(Model*model,uint32_t textureHandle);
 	void Update();
-	void Draw();
+	void Draw(ViewProjection&viewProjection);
 
 private:
 	//ワールド変換データ
@@ -15,7 +26,13 @@ private:
 	Model* model_ = nullptr;
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
-
+	//入力処理をするため
 	Input* input_ = nullptr;
+	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
+	
+	MyMath* myMath_ = nullptr;
+    
+	VectorMove* vectorMove_ = nullptr;
+
 };

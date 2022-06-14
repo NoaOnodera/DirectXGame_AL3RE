@@ -2,11 +2,14 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "Player.h"
+#include "MyMath.h"
+
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete player_;
-	delete debugCamera_;
+	
 }
 
 void GameScene::Initialize() {
@@ -16,14 +19,18 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");//ファイル名を指定してテクスチャを読み込む
-	//model_ = Model::Create();//3Dモデルの生成
+	model_ = Model::Create();//3Dモデルの生成
 	debugCamera_ = new DebugCamera(1280, 720);
-	//worldTransform_.Initialize();//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
-    //自キャラの生成
-	player_ = new Player();
+	viewProjection_.eye = { 0,0,-50 };
+								 
+								 
+	player_ = new Player();//自キャラの生成
 	//自キャラの初期化
-	player_->Initialize(Model * model, uint32_t textureHandle);
+	//void Initialize(Model * model, uint32_t textureHandle);
+	player_->Initialize(model_,textureHandle_);
+	
 
 }
 
@@ -68,7 +75,7 @@ void GameScene::Draw() {
 	//model_->Draw(worldTransform_,viewProjection_,textureHandle_);//3Dモデル描画
 	//model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 	//自キャラの描画
-	player_->Draw();
+	player_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
