@@ -12,6 +12,7 @@
 #include "DebugCamera.h"
 #include "Player.h"
 #include "MyMath.h"
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -48,14 +49,10 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	Model* model_ = nullptr;
-	WorldTransform worldTransform_;
 	DebugText* debugText_ = nullptr;
 	uint32_t textureHandle_ = 0;//テクスチャハンドル
-	ViewProjection viewProjection_;//ビュープロジェクション
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
-	//自キャラ
-	Player* player_ = nullptr;
-	/// <summary>
-	/// ゲームシーン用
-	/// </summary>
+	ViewProjection viewProjection_;//ビュープロジェクション
+	WorldTransform worldTransform_;
+	Player* player_ = nullptr;//自キャラ
 };

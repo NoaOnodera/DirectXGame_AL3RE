@@ -5,6 +5,7 @@
 #include "MyMath.h"
 
 
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -90,7 +91,7 @@ void GameScene::Draw() {
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
-	//
+	
 	// スプライト描画後処理
 	Sprite::PostDraw();
 

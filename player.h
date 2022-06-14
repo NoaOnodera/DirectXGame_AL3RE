@@ -8,6 +8,7 @@
 #include"TextureManager.h"
 #include "VectorMove.h"
 #include "MyMath.h"
+#include "PlayerBullet.h"
 
 class Player {
 public:
@@ -15,10 +16,11 @@ public:
 
 	 Player();
     ~Player();
+	void Rotate();
 	void Initialize(Model*model,uint32_t textureHandle);
 	void Update();
 	void Draw(ViewProjection&viewProjection);
-
+	void Attack();
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -35,4 +37,9 @@ private:
     
 	VectorMove* vectorMove_ = nullptr;
 
+	//弾
+	PlayerBullet* bullet_ = nullptr;
+
+
+	
 };
