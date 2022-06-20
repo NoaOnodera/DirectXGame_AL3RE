@@ -8,8 +8,9 @@
 #include "VectorMove.h"
 #include "MyMath.h"
 #include "PlayerBullet.h"
-#include <memory.h>
+#include <memory>
 #include <list>
+
 class Player {
 public:
 
@@ -21,7 +22,10 @@ public:
 	void Update();
 	void Draw(ViewProjection&viewProjection);
 	void Attack();
+	
 private:
+
+	
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//モデル
@@ -37,9 +41,13 @@ private:
     
 	VectorMove* vectorMove_ = nullptr;
 
+
+	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 	//弾
 	PlayerBullet* bullet_ = nullptr;
 
+	
+	
 
 	
 };
