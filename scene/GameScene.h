@@ -54,5 +54,5 @@ class GameScene {
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
 	ViewProjection viewProjection_;//ビュープロジェクション
 	WorldTransform worldTransform_;
-	Player* player_ = nullptr;//自キャラ
+	Player* player_ = nullptr;
 };

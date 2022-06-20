@@ -1,15 +1,15 @@
 #pragma once
-#include "GameScene.h"
 #include "WorldTransform.h"
-#include "Model.h"
-#include "Input.h" 
+#include "DebugText.h"
+#include "Input.h"
 #include "WorldTransform.h"
 #include "ViewProjection.h"
-#include"TextureManager.h"
+#include "TextureManager.h"
 #include "VectorMove.h"
 #include "MyMath.h"
 #include "PlayerBullet.h"
-
+#include <memory.h>
+#include <list>
 class Player {
 public:
 
