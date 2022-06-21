@@ -1,4 +1,5 @@
 #pragma once
+#include "Model.h"
 #include "WorldTransform.h"
 #include "DebugText.h"
 #include "Input.h"
@@ -10,7 +11,7 @@
 #include "PlayerBullet.h"
 #include <memory>
 #include <list>
-#include <string>
+
 
 class Player {
 public:

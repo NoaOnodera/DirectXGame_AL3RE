@@ -1,12 +1,9 @@
 #pragma once
-#include"Player.h"
 #include "Model.h"
-#include "Input.h" 
 #include "WorldTransform.h"
-#include "ViewProjection.h"
 #include"TextureManager.h"
 #include "VectorMove.h"
-#include "MyMath.h"
+#include "DebugText.h"
 
 class PlayerBullet {
 public:
@@ -26,6 +23,7 @@ private:
 	//‘¬“x
 	Vector3 velocity_;
 
+	DebugText* debugText_ = nullptr;
 	VectorMove* vectorMove_ = nullptr;
 	//Žõ–½<frm>
 	static const int32_t kLifeTime = 60 * 5;

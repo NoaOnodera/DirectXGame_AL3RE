@@ -1,12 +1,6 @@
 #include "VectorMove.h"
-#include "Matrix4.h"
-#include "GameScene.h"
-#include "TextureManager.h"
-#include "AxisIndicator.h"
-#include <cassert>
-#include "Player.h"
 #include <DirectXMath.h>
-#include "MyMath.h"
+
 VectorMove::VectorMove() {
 
 };
@@ -129,43 +123,43 @@ Matrix4 VectorMove::MyTrans(WorldTransform& worldTransform_)
 
 
 
-	Matrix4 VectorMove::MyUpdate(WorldTransform& worldTransform_)
-	{
+Matrix4 VectorMove::MyUpdate(WorldTransform& worldTransform_)
+{
 
 
-		Matrix4 mat;
-		mat.IndentityMatrix();
-		worldTransform_.matWorld_ = mat;
+	Matrix4 mat;
+	mat.IndentityMatrix();
+	worldTransform_.matWorld_ = mat;
 
-		//スケーリング
-		Matrix4 matScale = VectorMove::MyScale(worldTransform_);
-		Matrix4 matRotZ = VectorMove::MyRotZ(worldTransform_);
-		Matrix4 matRotX = VectorMove::MyRotX(worldTransform_);
-		Matrix4 matRotY = VectorMove::MyRotY(worldTransform_);
-		Matrix4 matTrans = VectorMove::MyTrans(worldTransform_);
-		//スケーリング・回転・平行移動を合成した行列を計算してワールドトランスフォームに代入zz
+	//スケーリング
+	Matrix4 matScale = VectorMove::MyScale(worldTransform_);
+	Matrix4 matRotZ = VectorMove::MyRotZ(worldTransform_);
+	Matrix4 matRotX = VectorMove::MyRotX(worldTransform_);
+	Matrix4 matRotY = VectorMove::MyRotY(worldTransform_);
+	Matrix4 matTrans = VectorMove::MyTrans(worldTransform_);
+	//スケーリング・回転・平行移動を合成した行列を計算してワールドトランスフォームに代入zz
 
-		worldTransform_.matWorld_ *= matScale;//掛け算
-
-
-		worldTransform_.matWorld_ *= matRotZ;//掛け算
+	worldTransform_.matWorld_ *= matScale;//掛け算
 
 
-		worldTransform_.matWorld_ *= matRotX;//掛け算
+	worldTransform_.matWorld_ *= matRotZ;//掛け算
 
 
-		worldTransform_.matWorld_ *= matRotY;//掛け算
+	worldTransform_.matWorld_ *= matRotX;//掛け算
+
+
+	worldTransform_.matWorld_ *= matRotY;//掛け算
 
 
 
-		worldTransform_.matWorld_ *= matTrans;//掛け算
+	worldTransform_.matWorld_ *= matTrans;//掛け算
 
-			//行列の転送
-		worldTransform_.TransferMatrix();
+		//行列の転送
+	worldTransform_.TransferMatrix();
 
-		return worldTransform_.matWorld_;
-	}
-	
+	return worldTransform_.matWorld_;
+}
+
 
 
 

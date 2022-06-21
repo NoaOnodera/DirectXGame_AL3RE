@@ -1,11 +1,6 @@
-#include "GameScene.h"
 #include <cassert>
 #include"Player.h"
-#include"PlayerBullet.h"
-#include"MyMath.h"
-#include <iostream>
-#include <string>
-#include <vector>
+
 
 using namespace std;
 Player::Player() {
@@ -28,12 +23,13 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	textureHandle_ = TextureManager::Load("mario.jpg");
 	input_ = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	//ƒ[ƒ‹ƒh•ÏŠ·‚Ì‰Šú‰»
+	
+
+	
 	worldTransform_.Initialize();
 
 	myMath_ = new MyMath();
 
-	
 
 
 }

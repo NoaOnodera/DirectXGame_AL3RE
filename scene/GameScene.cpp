@@ -1,15 +1,13 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include "Player.h"
-#include "MyMath.h"
 
 
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	delete player_;
+	
 	
 }
 
@@ -26,12 +24,14 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
 								 
-								 
-	player_ = new Player();//自キャラの生成
+	player_ = std::make_unique<Player>();
+
 	//自キャラの初期化
 	//void Initialize(Model * model, uint32_t textureHandle);
 	player_->Initialize(model_,textureHandle_);
-	
+	//enemy_->Initialize(model_);
+	enemy_ = std::make_unique<Enemy>();
+	enemy_->Initialize(model_, textureHandle_);
 
 }
 
@@ -39,7 +39,7 @@ void GameScene::Update() {
 	debugCamera_->Update();//デバッグカメラの更新
 	//自キャラの更新
 	player_->Update();
-
+	enemy_->Update();
 
 	debugText_->SetPos(50, 70);
 	debugText_->Printf("eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
@@ -77,6 +77,7 @@ void GameScene::Draw() {
 	//model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 	//自キャラの描画
 	player_->Draw(viewProjection_);
+	enemy_->Draw(viewProjection_);
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

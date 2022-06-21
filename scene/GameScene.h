@@ -12,6 +12,7 @@
 #include "DebugCamera.h"
 #include "Player.h"
 #include "MyMath.h"
+#include"Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -54,5 +55,8 @@ class GameScene {
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
 	ViewProjection viewProjection_;//ビュープロジェクション
 	WorldTransform worldTransform_;
-	Player* player_ = nullptr;
+    std::unique_ptr<Player>player_;
+	std::unique_ptr<Enemy>enemy_;
+	bool isDebugCameraActive_ = false;
+	
 };
