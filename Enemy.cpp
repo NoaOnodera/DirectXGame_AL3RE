@@ -54,6 +54,22 @@ void Enemy::Move()
 }
 void Enemy::Update()
 	{
+	switch (phase_) {
+	case Phase::Approch:
+	default:
+			//ˆÚ“®ƒxƒNƒgƒ‹‰ÁŽZ
+		worldTransform_.translation_ += ;
+    //‹K’è‚ÌˆÊ’u‚É“ž’B‚µ‚½‚ç—£’E
+		if (worldTransform_.translation_.z < 0.0f) {
+			phase_ = Phase::Leave;
+		}
+		break;
+	case Phase::Leave:
+		//ˆÚ“®ƒxƒNƒgƒ‹‚ð‰ÁŽZ
+		worldTransform_.translation_ += Phase::Leave;
+		break;
+	}
+
 	Move();
 	}
 

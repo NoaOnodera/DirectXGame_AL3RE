@@ -3,6 +3,11 @@
 #include "DebugText.h"
 #include "VectorMove.h"
 
+enum class Phase {
+	Initial,//初期
+	Approch,//接近する
+	Leave,//離脱する
+};
 
 class Enemy {
 public:
@@ -22,5 +27,7 @@ private:
 	
 	VectorMove* vectorMove_ = nullptr;
 	
+	//フェーズ
+	Phase phase_ = Phase::Initial;
 	
 };
