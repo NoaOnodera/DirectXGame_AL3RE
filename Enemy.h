@@ -4,7 +4,6 @@
 #include "VectorMove.h"
 
 enum class Phase {
-	Initial,//初期
 	Approch,//接近する
 	Leave,//離脱する
 };
@@ -17,6 +16,10 @@ public:
 	void Move();
 	void Update();
 	void Draw(const ViewProjection& viewProjection);
+	void ApprochMove();
+	void LeaveMove();
+
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -28,6 +31,6 @@ private:
 	VectorMove* vectorMove_ = nullptr;
 	
 	//フェーズ
-	Phase phase_ = Phase::Initial;
+	Phase phase_ = Phase::Approch;
 	
 };
