@@ -10,6 +10,7 @@
 #include "PlayerBullet.h"
 #include <memory>
 #include <list>
+#include <string>
 
 class Player {
 public:
@@ -41,8 +42,8 @@ private:
     
 	VectorMove* vectorMove_ = nullptr;
 
-
-	std::list<std::unique_ptr<PlayerBullet>> bullets_;
+	//std::list<std::unique_ptr<PlayerBullet>> bullets_;
+	std::list<std::unique_ptr<PlayerBullet>>bullets_;
 	//’e
 	PlayerBullet* bullet_ = nullptr;
 
