@@ -19,7 +19,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle)
 
 	textureHandle_ = TextureManager::Load("player_shade.jpg");
 
-	
+	ApprochMove);
 
 	//debugText_ = DebugTxet::GetInstance();
 	//引数で受け取った初期座標をセット
@@ -60,6 +60,15 @@ void Enemy::ApprochMove()
 
 	vectorMove_->MyUpdate(worldTransform_);
 
+	//発射タイマーカウントダウン
+	eFireTime--;
+	if (eFireTime == 30)
+	{
+		//弾を発射
+		Fire();
+		//発射タイマーを初期化
+		eFireTime = kFireInterval;
+	}
 	//行列更新
 	//行列の転送
 	worldTransform_.TransferMatrix();
@@ -105,10 +114,25 @@ void Enemy::Update()
 		break;
 	}
 
+	if (bullet_) {
+		bullet_->Update();
+   }
 	//Move();
 	}
 
 void Enemy::Draw(const ViewProjection& viewProjection)
 {
+	
+	
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	if (bullet_)
+	{
+		bullet_->Draw(viewProjection);
+    }
+}
+
+void Enemy::Fire()
+{
+
 }
