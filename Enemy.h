@@ -1,8 +1,16 @@
 #pragma once
 #include "Model.h"
+#include "WorldTransform.h"
 #include "DebugText.h"
+#include "Input.h"
+#include "WorldTransform.h"
+#include "ViewProjection.h"
+#include "TextureManager.h"
 #include "VectorMove.h"
+#include "MyMath.h"
 #include "EnemyBullet.h"
+#include <memory>
+#include <list>
 enum class Phase {
 	Approch,//接近する
 	Leave,//離脱する
@@ -15,7 +23,7 @@ public:
 	void Initialize(Model* model,uint32_t textureHandle);
 	void Move();
 	void Update();
-	void Draw(const ViewProjection& viewProjection);
+	void Draw(ViewProjection& viewProjection);
 	void ApprochMove();
 	void LeaveMove();
 	void Fire();
@@ -30,7 +38,13 @@ private:
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0u;
 	
-	int32_t eFireTime = 0;
+	//デバッグテキスト
+	DebugText* debugText_ = nullptr;
+
+	MyMath* myMath_ = nullptr;
+
+	int32_t eFireTime = 60;
+
 	VectorMove* vectorMove_ = nullptr;
 	
 	//フェーズ

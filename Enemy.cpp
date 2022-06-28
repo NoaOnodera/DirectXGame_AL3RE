@@ -5,21 +5,27 @@ Enemy::Enemy() {
 
 }
 Enemy::~Enemy() {
-	
+	delete vectorMove_;
+	delete myMath_;
 }
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle)
 {
-	//ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
+	
 	//NULLポインタチェック
 	assert(model);
 	//引数として受け取ったデータをメンバ変数に記録する
 	this->model_ = model;
 
 	textureHandle_ = TextureManager::Load("player_shade.jpg");
+	debugText_ = DebugText::GetInstance();
 
-	ApprochMove);
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+
+
+	myMath_ = new MyMath();
+	//ApprochMove();
 
 	//debugText_ = DebugTxet::GetInstance();
 	//引数で受け取った初期座標をセット
@@ -48,6 +54,10 @@ void Enemy::LeaveMove() {
 
 void Enemy::ApprochMove()
 {
+	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet)
+		{
+			return bullet->IsDead();
+		});
 	//キャラクターの移動ベクトル
 	Vector3 move = { 0,0,0 };
 
@@ -62,12 +72,16 @@ void Enemy::ApprochMove()
 
 	//発射タイマーカウントダウン
 	eFireTime--;
-	if (eFireTime == 30)
+	if (eFireTime ==0)
 	{
 		//弾を発射
 		Fire();
 		//発射タイマーを初期化
 		eFireTime = kFireInterval;
+	}
+
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Update();
 	}
 	//行列更新
 	//行列の転送
@@ -101,6 +115,8 @@ void Enemy::Move()
 	//debugText_->Printf("EnemyPos:(%f,%f,%f)",worldTransform.translation_.x,
 		//worldTransform_.translation_.y,worldTransform_.translation_.z);
 }
+
+
 void Enemy::Update()
 	{
 	switch (phase_) {
@@ -114,25 +130,41 @@ void Enemy::Update()
 		break;
 	}
 
-	if (bullet_) {
-		bullet_->Update();
-   }
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Update();
+	}
 	//Move();
 	}
 
-void Enemy::Draw(const ViewProjection& viewProjection)
+void Enemy::Draw(ViewProjection& viewProjection)
 {
-	
-	
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	if (bullet_)
+	/*if (bullet_)
 	{
 		bullet_->Draw(viewProjection);
-    }
+    }*/
+
+	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 }
 
 void Enemy::Fire()
 {
+	//弾の速度
+	const float eBulletSpeed = 1.0f;
+	Vector3 velocity(0, 0, -eBulletSpeed);
+	//弾を生成し、初期化
+	//PlayerBullet* newBullet = new PlayerBullet();
+	Vector3 position = worldTransform_.translation_;
+	//速度ベクトルを自機の向きに合わせて回転させる
+	velocity = MathUtility::Vector3TransformNormal(velocity, worldTransform_.matWorld_);
+	//弾を生成し、初期化
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
+	//弾を登録する
+		//bullets_.push_back(std::move(newBullet));
+	bullets_.push_back(std::move(newBullet));
 }

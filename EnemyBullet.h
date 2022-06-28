@@ -5,6 +5,8 @@
 #include "VectorMove.h"
 #include "DebugText.h"
 
+
+
 class EnemyBullet {
 public:
 	EnemyBullet();
@@ -27,9 +29,9 @@ private:
 	DebugText* debugText_ = nullptr;
 	VectorMove* vectorMove_ = nullptr;
 	//寿命<frm>
-	static const int32_t kLifeTime = 60 * 5;
+	static const int32_t eLifeTime = 60 * 5;
 	//デスタイマー
-	int32_t deathTimer_ = kLifeTime;
+	int32_t deathTimer_ = eLifeTime;
 	//デスフラグ
 	bool isDead_ = false;
 };
