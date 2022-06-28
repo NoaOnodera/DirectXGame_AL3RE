@@ -63,13 +63,13 @@ void Player::Update() {
 			move = { -kCharacterSpeed, 0, 0 };
 
 		}
-		else if (input_->PushKey(DIK_RIGHT)) {
+		if (input_->PushKey(DIK_RIGHT)) {
 			move = { kCharacterSpeed, 0, 0 };
 		}
-		else if (input_->PushKey(DIK_UP)) {
+	    if (input_->PushKey(DIK_UP)) {
 			move = { 0, kCharacterSpeed, 0 };
 		}
-		else if (input_->PushKey(DIK_DOWN)) {
+	    if (input_->PushKey(DIK_DOWN)) {
 			move = {0, -kCharacterSpeed, 0 };
 		}
 
@@ -147,4 +147,15 @@ void Player::Attack() {
 	}
 }
 
+
+Vector3 Player::GetWorldPosition()
+{
+	Vector3 worldPos;
+
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+}
 	

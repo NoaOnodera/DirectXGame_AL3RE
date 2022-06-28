@@ -25,6 +25,9 @@ public:
 	void Draw(ViewProjection&viewProjection);
 	void Attack();
 	
+
+	//ƒ[ƒ‹ƒhÀ•W‚ğæ“¾
+	Vector3 GetWorldPosition();
 private:
 
 	
