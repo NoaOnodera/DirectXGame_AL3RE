@@ -22,6 +22,8 @@ public:
 	void LeaveMove();
 	void Fire();
 	void SetPlayer(Player* player) { player_ = player; }
+	//衝突を検出したら呼び出しされるコールバック関数
+	void OnCollision();
 	Vector3 GetWorldPosition();
 	//発射感覚
 	static const int kFireInterval = 60;
@@ -44,6 +46,9 @@ private:
 	Player* player_ = nullptr;
 	std::list<std::unique_ptr<EnemyBullet>>bullets_;
 	
+
+	//弾リストを取得
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBulllets() { return bullets_; }
 	//フェーズ
 	Phase phase_ = Phase::Approch;
 

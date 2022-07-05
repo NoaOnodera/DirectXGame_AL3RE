@@ -188,3 +188,8 @@ void Enemy::Fire()
 	bullets_.push_back(std::move(newBullet));
 }
 
+
+void Enemy::OnCollision()
+{
+
+}

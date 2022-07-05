@@ -24,6 +24,9 @@ public:
 	void Update();
 	void Draw(ViewProjection&viewProjection);
 	void Attack();
+
+	//衝突を検出したら呼び出しされるコールバック関数
+	void OnCollision();
 	Vector3 GetWorldPosition();
 private:
 
@@ -47,7 +50,8 @@ private:
 	std::list<std::unique_ptr<PlayerBullet>>bullets_;
 	
 	
-	
+	//弾リストを取得
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
 
 	
 };
