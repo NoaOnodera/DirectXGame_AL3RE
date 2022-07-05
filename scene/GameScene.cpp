@@ -44,6 +44,8 @@ void GameScene::Update() {
 	player_->Update();
 	enemy_->Update();
 
+
+	
 	debugText_->SetPos(50, 70);
 	debugText_->Printf("eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 }

@@ -46,7 +46,8 @@ private:
     
 	VectorMove* vectorMove_ = nullptr;
 
-	//std::list<std::unique_ptr<PlayerBullet>> bullets_;
+	
+
 	std::list<std::unique_ptr<PlayerBullet>>bullets_;
 	//’e
 	PlayerBullet* bullet_ = nullptr;

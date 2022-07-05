@@ -1,19 +1,19 @@
-
+#include"player.h"
 #include "Enemy.h"
-#include "Player.h"
 #include<cassert>
-//#include"Vector3.h"
+
 Enemy::Enemy() {
 	
 
 }
 Enemy::~Enemy() {
-	delete vectorMove_;
-	delete myMath_;
+	
 }
 
 void Enemy::Initialize(Model* model, uint32_t textureHandle)
 {
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
 	
 	//NULLポインタチェック
 	assert(model);
@@ -23,18 +23,17 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle)
 	textureHandle_ = TextureManager::Load("player_shade.jpg");
 	debugText_ = DebugText::GetInstance();
 
-	//ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
+	
 
 
 	myMath_ = new MyMath();
-	//ApprochMove();
+	
 
 	//debugText_ = DebugTxet::GetInstance();
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = {0,2,30};
 	worldTransform_.scale_ = { 1,1,1 };
-	//vectorMove_ = new VectorMove();
+	vectorMove_ = new VectorMove();
 
 }
 void Enemy::LeaveMove() {
@@ -143,11 +142,6 @@ void Enemy::Draw(ViewProjection& viewProjection)
 {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	/*if (bullet_)
-	{
-		bullet_->Draw(viewProjection);
-    }*/
-
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
@@ -155,8 +149,8 @@ void Enemy::Draw(ViewProjection& viewProjection)
 
 void Enemy::Fire()
 {
-
 	assert(player_);
+	
 	//弾の速度
 	const float eBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, -eBulletSpeed);
@@ -172,6 +166,7 @@ void Enemy::Fire()
 
 	//弾を登録する
 	bullets_.push_back(std::move(newBullet));
+	
 }
 
 Vector3 Enemy::GetWorldPosition() {

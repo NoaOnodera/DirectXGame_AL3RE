@@ -1,7 +1,6 @@
 #include <cassert>
 #include"Player.h"
 
-
 using namespace std;
 Player::Player() {
 
@@ -30,7 +29,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 
 	myMath_ = new MyMath();
 
-
+	
 
 }
 
@@ -93,7 +92,8 @@ void Player::Update() {
 
 
 
-		
+		debugText_->SetPos(70, 100);
+		debugText_->Printf("Player:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
 
 
 		//キャラクターの座標を画面表示する処理
