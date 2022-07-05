@@ -13,6 +13,7 @@
 #include "Player.h"
 #include "MyMath.h"
 #include"Enemy.h"
+#include"EnemyBullet.h"
 
 /// <summary>
 /// ゲームシーン
@@ -57,6 +58,7 @@ class GameScene {
 	WorldTransform worldTransform_;
     std::unique_ptr<Player>player_;
 	std::unique_ptr<Enemy>enemy_;
+	std::unique_ptr<EnemyBullet>enemyBullet_;
 	bool isDebugCameraActive_ = false;
 	
 };

@@ -1,10 +1,11 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include"AxisIndicator.h"
 
 
-
-GameScene::GameScene() {}
+GameScene::GameScene() {
+}
 
 GameScene::~GameScene() {
 	
@@ -23,16 +24,20 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
-								 
+	
 	player_ = std::make_unique<Player>();
-
+	
 	//自キャラの初期化
 	//void Initialize(Model * model, uint32_t textureHandle);
-	player_->Initialize(model_,textureHandle_);
-	//enemy_->Initialize(model_);
 	enemy_ = std::make_unique<Enemy>();
+	enemy_->SetPlayer(player_.get());
+
+
+
+	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
 
+	
 }
 
 void GameScene::Update() {

@@ -1,4 +1,4 @@
-#include "Enemy.h"
+
 #include "EnemyBullet.h"
 #include<cassert>
 
@@ -10,7 +10,7 @@ EnemyBullet::EnemyBullet() {
 
 
 EnemyBullet::~EnemyBullet() {
-	delete vectorMove_;
+	
 }
 
 void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {

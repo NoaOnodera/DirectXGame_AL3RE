@@ -24,7 +24,7 @@ public:
 	void Update();
 	void Draw(ViewProjection&viewProjection);
 	void Attack();
-	
+	Vector3 GetWorldPosition();
 private:
 
 	
@@ -43,11 +43,9 @@ private:
     
 	VectorMove* vectorMove_ = nullptr;
 
-	//std::list<std::unique_ptr<PlayerBullet>> bullets_;
+	
 	std::list<std::unique_ptr<PlayerBullet>>bullets_;
-	//’e
-	PlayerBullet* bullet_ = nullptr;
-
+	
 	
 	
 

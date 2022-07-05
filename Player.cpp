@@ -73,12 +73,11 @@ void Player::Update() {
 			move = {0, -kCharacterSpeed, 0 };
 		}
 
-
-
+		debugText_->SetPos(70, 100);
+		debugText_->Printf("Player Pos:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y, worldTransform_.translation_.z);
+		debugText_->SetPos(70, 130);
+		debugText_->Printf("Player Rot:(%f)", worldTransform_.rotation_.y);
 		
-
-
-
 		//座標移動(ベクトルの加算)
 		worldTransform_.translation_ += move;
 		
@@ -125,6 +124,17 @@ void Player::Draw(ViewProjection&viewProjection) {
 	}
 }
 
+Vector3 Player::GetWorldPosition()
+{
+	Vector3 worldPos;
+
+	worldPos.x = worldTransform_.translation_.x;
+	worldPos.y = worldTransform_.translation_.y;
+	worldPos.z = worldTransform_.translation_.z;
+
+	return worldPos;
+
+}
 
 void Player::Attack() {
 	if (input_->PushKey(DIK_SPACE)) 
@@ -146,5 +156,3 @@ void Player::Attack() {
 		bullets_.push_back(std::move(newBullet));
 	}
 }
-
-	

@@ -1,4 +1,4 @@
-#include "Player.h"
+
 #include "PlayerBullet.h"
 #include<cassert>
 
@@ -8,7 +8,7 @@ PlayerBullet::PlayerBullet() {
 
 
 PlayerBullet::~PlayerBullet() {
-	delete vectorMove_;
+	
 }
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
