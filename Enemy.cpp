@@ -160,7 +160,7 @@ void Enemy::Fire()
 	const float eBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, -eBulletSpeed);
 	
-	player_->
+	
 
 
 	//’e‚ð¶¬‚µA‰Šú‰»
