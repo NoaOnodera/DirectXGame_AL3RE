@@ -4,7 +4,8 @@
 
 
 
-GameScene::GameScene() {}
+GameScene::GameScene() {
+}
 
 GameScene::~GameScene() {
 	

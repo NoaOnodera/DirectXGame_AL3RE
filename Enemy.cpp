@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include<cassert>
+//#include"Vector3.h"
 Enemy::Enemy() {
 	
 
@@ -160,6 +161,8 @@ void Enemy::Fire()
 	const float eBulletSpeed = 1.0f;
 	Vector3 velocity(0, 0, -eBulletSpeed);
 	
+
+
 	
 
 

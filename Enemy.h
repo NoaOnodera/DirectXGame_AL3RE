@@ -11,6 +11,7 @@
 #include "EnemyBullet.h"
 #include <memory>
 #include <list>
+#include"Vector3.h"
 
 //自機クラスの前方宣言
 class Player;
