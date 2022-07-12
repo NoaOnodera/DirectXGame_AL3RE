@@ -28,6 +28,9 @@ public:
 	//衝突を検出したら呼び出しされるコールバック関数
 	void OnCollision();
 	Vector3 GetWorldPosition();
+	//弾リストを取得
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
+
 private:
 
 	
@@ -44,14 +47,14 @@ private:
 	
 	MyMath* myMath_ = nullptr;
     
+
+	
 	VectorMove* vectorMove_ = nullptr;
 
 	
 	std::list<std::unique_ptr<PlayerBullet>>bullets_;
 	
 	
-	//弾リストを取得
-	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
-
+	
 	
 };

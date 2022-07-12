@@ -12,8 +12,8 @@
 #include "DebugCamera.h"
 #include "Player.h"
 #include "MyMath.h"
-#include"Enemy.h"
-#include"EnemyBullet.h"
+#include "Enemy.h"
+#include "EnemyBullet.h"
 
 /// <summary>
 /// ゲームシーン
@@ -51,7 +51,7 @@ class GameScene {
 	/// </summary>
 	void CheckAllCollisions();
 
-
+	
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;

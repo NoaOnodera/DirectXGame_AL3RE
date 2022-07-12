@@ -27,6 +27,7 @@ public:
 	Vector3 GetWorldPosition();
 	//発射感覚
 	static const int kFireInterval = 60;
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; }
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -48,7 +49,7 @@ private:
 	
 
 	//弾リストを取得
-	const std::list<std::unique_ptr<EnemyBullet>>& GetBulllets() { return bullets_; }
+	
 	//フェーズ
 	Phase phase_ = Phase::Approch;
 

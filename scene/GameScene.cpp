@@ -78,8 +78,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	//model_->Draw(worldTransform_,viewProjection_,textureHandle_);//3Dモデル描画
-	//model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+
 	//自キャラの描画
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
@@ -105,7 +104,7 @@ void GameScene::Draw() {
 }
 
 
-void CheckAllCollision()
+void GameScene::CheckAllCollisions()
 {
 	//判定対象AとBの座標
 	Vector3 posA, posB;
@@ -116,7 +115,7 @@ void CheckAllCollision()
 	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemy_->GetBullets();
 #pragma 自キャラと敵弾の当たり判定
 	//自キャラの座標
-	posA = player_->GetPosition();
+	posA =;
 
 
 	//自キャラと敵弾全てのあたり判定
@@ -124,8 +123,18 @@ void CheckAllCollision()
 
 
 		//敵弾の座標
-		posB =
+		posB =worldTransform_.translation_;
 
+		//座標AとBの距離を求める
+			//球と球の交差判定
+			if() {
+				//自キャラの衝突時コールバックを呼び出す
+				player_->OnCollision();
+				//敵弾の衝突時コールバックを呼び出す
+				bullet->OnCollision();
+
+
+			}
 	}
 #pragma endregion
 
@@ -139,5 +148,6 @@ void CheckAllCollision()
 
 
 #pragma endregion
-
+	
+	
 }
