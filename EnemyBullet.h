@@ -15,6 +15,8 @@ public:
 	void Update();
 	//衝突を検出したら呼び出しされるコールバック関数
 	void OnCollision();
+	Vector3 GetWorldPosition();
+	Vector3 GetRadius();
 	void Draw(const ViewProjection& viewProjection);
 	bool IsDead() const { return isDead_; }
 private:

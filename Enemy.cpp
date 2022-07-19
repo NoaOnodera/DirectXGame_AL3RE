@@ -70,7 +70,7 @@ void Enemy::ApprochMove()
 
 	move = { 0,0,-kCharacterSpeed };
 
-	worldTransform_.translation_ += move;
+//worldTransform_.translation_ += move;
 
 	vectorMove_->MyUpdate(worldTransform_);
 
@@ -90,9 +90,9 @@ void Enemy::ApprochMove()
 		}
 	}
 
-	if (worldTransform_.translation_.z < 0.0f) {
+	/*if (worldTransform_.translation_.z < 0.0f) {
 		phase_ = Phase::Leave;
-	}
+	}*/
 
 	//行列更新
 	//行列の転送
@@ -110,21 +110,17 @@ void Enemy::Update()
 		debugText_->SetPos(70, 170);
 		debugText_->Printf("Phase:Approch");
 		break;
-	case Phase::Leave:
-		LeaveMove();
-		debugText_->SetPos(70, 170);
-		debugText_->Printf("Phase:LeaveMove");
-		break;
+	
 	}
 
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
 		bullet->Update();
 	}
-	/*vectorMove_->MyUpdate(worldTransform_);
+	vectorMove_->MyUpdate(worldTransform_);
 
-	行列更新
-	行列の転送
-	worldTransform_.TransferMatrix();*/
+	//行列更新
+	//行列の転送
+	worldTransform_.TransferMatrix();
 
 
 
@@ -192,4 +188,14 @@ void Enemy::Fire()
 void Enemy::OnCollision()
 {
 
+}
+Vector3 Enemy::GetRadius()
+{
+	Vector3 enemyRadius;
+
+	enemyRadius.x = worldTransform_.scale_.x / 2;
+	enemyRadius.y = worldTransform_.scale_.y / 2;
+	enemyRadius.z = worldTransform_.scale_.z / 2;
+
+	return enemyRadius;
 }

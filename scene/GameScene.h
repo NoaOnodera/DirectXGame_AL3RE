@@ -14,7 +14,7 @@
 #include "MyMath.h"
 #include "Enemy.h"
 #include "EnemyBullet.h"
-
+#include"Collider.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -60,6 +60,7 @@ class GameScene {
 	DebugText* debugText_ = nullptr;
 	uint32_t textureHandle_ = 0;//テクスチャハンドル
 	DebugCamera* debugCamera_ = nullptr;//デバッグカメラ
+	Collider* collider_ = nullptr;
 	ViewProjection viewProjection_;//ビュープロジェクション
 	WorldTransform worldTransform_;
     std::unique_ptr<Player>player_;

@@ -25,6 +25,7 @@ public:
 	//衝突を検出したら呼び出しされるコールバック関数
 	void OnCollision();
 	Vector3 GetWorldPosition();
+	Vector3 GetRadius();
 	//発射感覚
 	static const int kFireInterval = 60;
 	const std::list<std::unique_ptr<EnemyBullet>>& GetBullets() { return bullets_; }

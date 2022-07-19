@@ -2,7 +2,7 @@
 #include "TextureManager.h"
 #include <cassert>
 #include"AxisIndicator.h"
-
+#include"Collider.h"
 
 GameScene::GameScene() {
 }
@@ -21,6 +21,7 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("mario.jpg");//ファイル名を指定してテクスチャを読み込む
 	model_ = Model::Create();//3Dモデルの生成
 	debugCamera_ = new DebugCamera(1280, 720);
+	collider_ = new Collider;
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
@@ -37,6 +38,7 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
 
+	
 	
 }
 
@@ -107,7 +109,9 @@ void GameScene::Draw() {
 void GameScene::CheckAllCollisions()
 {
 	//判定対象AとBの座標
-	Vector3 posA, posB;
+	Vector3 p_Pos,e_Pos,pb_Pos,eb_Pos;
+
+	Vector3 p_radius, e_radius, pb_radius, eb_radius;
 
 	//自弾リストの取得
 	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullets();
@@ -115,7 +119,10 @@ void GameScene::CheckAllCollisions()
 	const std::list<std::unique_ptr<EnemyBullet>>& enemyBullets = enemy_->GetBullets();
 #pragma 自キャラと敵弾の当たり判定
 	//自キャラの座標
-	posA =;
+	p_Pos = player_->GetWorldPosition();
+	
+	//自キャラの半径
+	p_radius = player_->GetRadius();
 
 
 	//自キャラと敵弾全てのあたり判定
@@ -123,29 +130,73 @@ void GameScene::CheckAllCollisions()
 
 
 		//敵弾の座標
-		posB =worldTransform_.translation_;
+		e_Pos = bullet->GetWorldPosition();
+		e_radius = bullet->GetRadius();
 
-		//座標AとBの距離を求める
+	
+		
 			//球と球の交差判定
-			if() {
+			if(collider_->OnBulletCollision(p_Pos.x,p_Pos.y,p_Pos.z,p_radius.x,e_Pos.x,e_Pos.y,e_Pos.z,e_radius.x) == true) {
 				//自キャラの衝突時コールバックを呼び出す
 				player_->OnCollision();
 				//敵弾の衝突時コールバックを呼び出す
 				bullet->OnCollision();
-
-
 			}
 	}
 #pragma endregion
 
 #pragma 自弾と敵キャラのあたり判定
+	
 
+	
+	e_Pos = enemy_->GetWorldPosition();
+	e_radius =enemy_->GetRadius();
+
+	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
+
+		//自キャラの座標
+		pb_Pos = bullet->GetWorldPosition();
+
+		//自キャラの半径
+		pb_radius = bullet->GetRadius();
+		
+
+
+		//球と球の交差判定
+		if (collider_->OnBulletCollision(pb_Pos.x, pb_Pos.y, pb_Pos.z, pb_radius.x, e_Pos.x, e_Pos.y, e_Pos.z, e_radius.x) == true) {
+			
+			enemy_->OnCollision();
+			
+			bullet->OnCollision();
+		}
+	}
 
 
 #pragma endregion
 
 #pragma 自弾と敵弾のあたり判定
+	for (const std::unique_ptr<PlayerBullet>& playerbullet : playerBullets) {
+		for (const std::unique_ptr<EnemyBullet>& enemybullet : enemyBullets) {
 
+
+			//敵弾の座標
+			eb_Pos = enemybullet->GetWorldPosition();
+			eb_radius = enemybullet->GetRadius();
+
+			//自キャラの座標
+			pb_Pos = playerbullet->GetWorldPosition();
+
+			//自キャラの半径
+			pb_radius = playerbullet->GetRadius();
+
+			//球と球の交差判定
+			if (collider_->OnBulletCollision(pb_Pos.x, pb_Pos.y, pb_Pos.z, pb_radius.x, eb_Pos.x, eb_Pos.y, eb_Pos.z, eb_radius.x) == true) {
+				enemybullet->OnCollision();
+				//敵弾の衝突時コールバックを呼び出す
+				playerbullet->OnCollision();
+			}
+		}
+	}
 
 #pragma endregion
 	
