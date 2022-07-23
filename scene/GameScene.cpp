@@ -8,8 +8,9 @@ GameScene::GameScene() {
 }
 
 GameScene::~GameScene() {
-	
-	
+	delete modelSkydome_;
+	delete skydome_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -20,12 +21,21 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 	textureHandle_ = TextureManager::Load("mario.jpg");//ファイル名を指定してテクスチャを読み込む
 	model_ = Model::Create();//3Dモデルの生成
-	debugCamera_ = new DebugCamera(1280, 720);
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	//debugCamera_ = new DebugCamera(1280, 720);
+	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
+
+	//軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//軸方向表示が参照するビュープロジェクションを指定する
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 	collider_ = new Collider;
 	worldTransform_.Initialize();//ワールドトランスフォームの初期化
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
 	
+	skydome_ = new Skydome();
+	skydome_->Initialize(modelSkydome_);
 	player_ = std::make_unique<Player>();
 	
 	//自キャラの初期化
@@ -47,7 +57,34 @@ void GameScene::Update() {
 	//自キャラの更新
 	player_->Update();
 	enemy_->Update();
+	skydome_->Update();
 
+
+#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_P)) {
+		isDebugCameraActive_ = !isDebugCameraActive_;
+	}
+
+	if (isDebugCameraActive_) {
+
+		AxisIndicator::GetInstance()->SetVisible(true);
+
+		AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
+
+
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+	}
+	else
+	{
+		AxisIndicator::GetInstance()->SetVisible(false);
+		AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
+		viewProjection_.UpdateMatrix();
+		viewProjection_.TransferMatrix();
+	}
+#endif
 	debugText_->SetPos(50, 70);
 	debugText_->Printf("eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 }
@@ -82,8 +119,10 @@ void GameScene::Draw() {
 
 
 	//自キャラの描画
+	skydome_->Draw(viewProjection_);
 	player_->Draw(viewProjection_);
 	enemy_->Draw(viewProjection_);
+	
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
