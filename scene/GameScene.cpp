@@ -3,6 +3,7 @@
 #include <cassert>
 #include"AxisIndicator.h"
 #include"Collider.h"
+#include "Matrix4.h"
 
 GameScene::GameScene() {
 }
@@ -34,9 +35,18 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
 	
-	skydome_ = new Skydome();
-	skydome_->Initialize(modelSkydome_);
+
+
+	Vector3 position = { 10.0f,2.0f,50.0f };
+
+	Vector3 cameraPosisition = {0,0,-10.0f};
+	Vector3 cameraRotation = { 0,0,0 };
+	
+	skydome_ = new Skydome();//天球
+	skydome_->Initialize(modelSkydome_);//天球の初期化
 	player_ = std::make_unique<Player>();
+	//レールカメラの生成
+	railCamera_ = std::make_unique<RailCamera>();
 	
 	//自キャラの初期化
 	//void Initialize(Model * model, uint32_t textureHandle);
@@ -47,9 +57,11 @@ void GameScene::Initialize() {
 
 	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
+	railCamera_->Initialize(cameraPosisition, cameraRotation);
 
+	player_->SetPlayer(railCamera_->GetWorldTransform());
 	
-	
+
 }
 
 void GameScene::Update() {
@@ -58,7 +70,13 @@ void GameScene::Update() {
 	player_->Update();
 	enemy_->Update();
 	skydome_->Update();
+	railCamera_->Update();
 
+	//railCameraをゲームシーンのカメラに適応する
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
+	//ビュープロジェクションの転送
+	viewProjection_.TransferMatrix();
 
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_P)) {

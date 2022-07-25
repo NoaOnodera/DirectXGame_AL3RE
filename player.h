@@ -27,11 +27,16 @@ public:
 
 	//衝突を検出したら呼び出しされるコールバック関数
 	void OnCollision();
+
+	Vector3 direction(const Vector3& velocity, const Matrix4& matWorld);
 	Vector3 GetWorldPosition();
 	Vector3 GetRadius();
+
+
+
 	//弾リストを取得
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
-
+	void SetPlayer(WorldTransform* worldTransform) { worldTransform_.parent_ = worldTransform; }
 private:
 
 	
@@ -48,6 +53,8 @@ private:
 	
 	MyMath* myMath_ = nullptr;
     
+
+
 
 	
 	VectorMove* vectorMove_ = nullptr;

@@ -107,8 +107,13 @@ void Player::Update() {
 		for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 			bullet->Update();
 		}
+
+		worldTransform_.MatrixUpdate();
 	}
+
+	
 	worldTransform_.TransferMatrix();
+
 
 
 }
@@ -124,17 +129,6 @@ void Player::Draw(ViewProjection&viewProjection) {
 	}
 }
 
-Vector3 Player::GetWorldPosition()
-{
-	Vector3 worldPos;
-
-	worldPos.x = worldTransform_.translation_.x;
-	worldPos.y = worldTransform_.translation_.y;
-	worldPos.z = worldTransform_.translation_.z;
-
-	return worldPos;
-
-}
 
 void Player::Attack() {
 	if (input_->PushKey(DIK_SPACE)) 
@@ -170,4 +164,27 @@ Vector3 Player::GetRadius()
 	playerRadius.z = worldTransform_.scale_.z / 2;
 
 	return playerRadius;
+}
+
+Vector3 Player::GetWorldPosition()
+{
+	Vector3 worldPos;
+
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+
+	return worldPos;
+}
+
+Vector3 Player::direction(const Vector3& velocity, const Matrix4& matWorld)
+{
+	Vector3 puts;
+
+	puts.x = velocity.x * matWorld.m[0][0] + velocity.y * matWorld.m[1][0] + velocity.z * matWorld.m[2][0];
+	puts.y = velocity.x * matWorld.m[0][1] + velocity.y * matWorld.m[1][1] + velocity.z * matWorld.m[2][1];
+	puts.z = velocity.x * matWorld.m[0][2] + velocity.y * matWorld.m[1][2] + velocity.z * matWorld.m[2][3];
+
+	return puts;
+
 }
