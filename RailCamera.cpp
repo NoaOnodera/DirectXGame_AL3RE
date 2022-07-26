@@ -27,7 +27,7 @@ void RailCamera::Initialize(const Vector3&position,const Vector3&rotation)
 void RailCamera::Update()
 {
 
-	const Vector3 MoveTrans = {0, 0, 0};
+	const Vector3 MoveTrans = {0, 0, 0.1f};
 	const Vector3 MoveRota={ 0,0,0 };
 //ワールドトランスフォームの座標の数値ヲ加算したりする(移動)
 	//worldTransform_.translation_ += Vector3(0, 0, 0.1f);

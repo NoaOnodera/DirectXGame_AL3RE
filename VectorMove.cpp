@@ -23,7 +23,7 @@ Matrix4 VectorMove::MyScale(WorldTransform& worldTransform_)
 
 	Matrix4 matScale;//スケーリング行列を宣言
 
-	matScale.IndentityMatrix();
+	matScale.IdentityMatrix();
 	//スケーリング倍率を行列に設定する
 	matScale.m[0][0] = worldTransform_.scale_.x;
 	matScale.m[1][1] = worldTransform_.scale_.y;
@@ -42,7 +42,7 @@ Matrix4 VectorMove::MyRotZ(WorldTransform& worldTransform_)
 
 
 
-	matRotZ.IndentityMatrix();
+	matRotZ.IdentityMatrix();
 	//Z軸回転行列の各要素を設定する
 	matRotZ.m[0][0] = cosf(worldTransform_.rotation_.z);
 	matRotZ.m[0][1] = sinf(worldTransform_.rotation_.z);
@@ -60,7 +60,7 @@ Matrix4 VectorMove::MyRotX(WorldTransform& worldTransform_)
 
 	Matrix4 matRotX;
 
-	matRotX.IndentityMatrix();
+	matRotX.IdentityMatrix();
 	//X軸回転行列の各要素を設定する
 	matRotX.m[0][0] = 1;
 	matRotX.m[1][1] = cosf(worldTransform_.rotation_.x);
@@ -78,7 +78,7 @@ Matrix4 VectorMove::MyRotY(WorldTransform& worldTransform_)
 {
 	Matrix4 matRotY;
 
-	matRotY.IndentityMatrix();
+	matRotY.IdentityMatrix();
 	//Y軸回転行列の各要素を設定する
 	matRotY.m[0][0] = cosf(worldTransform_.rotation_.y);
 	matRotY.m[1][1] = 1;
@@ -104,7 +104,7 @@ Matrix4 VectorMove::MyTrans(WorldTransform& worldTransform_)
 	//平行移動行列を宣言
 	Matrix4 matTrans;
 
-	matTrans.IndentityMatrix();
+	matTrans.IdentityMatrix();
 
 	//移動量を行列に設定する
 	matTrans.m[0][0] = 1;
@@ -128,7 +128,7 @@ Matrix4 VectorMove::MyUpdate(WorldTransform& worldTransform_)
 
 
 	Matrix4 mat;
-	mat.IndentityMatrix();
+	mat.IdentityMatrix();
 	worldTransform_.matWorld_ = mat;
 
 	//スケーリング

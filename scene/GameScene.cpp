@@ -34,6 +34,15 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();//ビュープロジェクションの初期化
 	viewProjection_.eye = { 0,0,-50 };
 	
+
+	Vector3 cameraPosition(0, 0, -10.0f);
+
+	Vector3 cameraRotation(0, 0, 0);
+	railCamera_ = std::make_unique<RailCamera>();
+	railCamera_->Initialize(cameraPosition, cameraRotation);
+
+
+
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_);
 	player_ = std::make_unique<Player>();
@@ -48,6 +57,8 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
 
+
+	player_->SetPlayer(railCamera_->GetWorldTransform());
 	
 	
 }
@@ -58,8 +69,12 @@ void GameScene::Update() {
 	player_->Update();
 	enemy_->Update();
 	skydome_->Update();
+	railCamera_->Update();
 
+	viewProjection_.matView = railCamera_->GetViewProjection().matView;
+	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
 
+	viewProjection_.TransferMatrix();
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_P)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
