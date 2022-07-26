@@ -6,8 +6,6 @@
 #include "player.h"
 class RailCamera {
 public:
-	RailCamera();
-	~RailCamera();
 	void Initialize(const Vector3&position,const Vector3&rotation);
 
 	void Update();
@@ -18,9 +16,11 @@ public:
 	const ViewProjection& GetViewProjection() { return viewProjection_; }
 
 	//ワールド行列の取得
-	const WorldTransform& GetWorldMatrix()const { return worldTransform_; }
+    const WorldTransform& GetWorldMatrix()const { return worldTransform_; }
 
-	WorldTransform* GetWorldTransform() { return &worldTransform_; }
+	//WorldTransform* GetWorldTransform() { return &worldTransform_; }
+
+	
 private:
 //ワールド変換データ
 	WorldTransform worldTransform_;
@@ -32,3 +32,4 @@ private:
 
 	VectorMove* vectorMove_ = nullptr;
 };
+

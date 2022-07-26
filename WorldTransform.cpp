@@ -11,12 +11,7 @@ void WorldTransform::MatrixUpdate()
 		translation_
 		);
 
-	if (parent_)
-	{
-		matWorld_*= parent_->matWorld_;
-
-
-	}
+	
 
 	TransferMatrix();
 }

@@ -22,9 +22,6 @@
     <Filter Include="ヘッダー ファイル\2d">
       <UniqueIdentifier>{96135050-efba-425e-a9fe-8881bd7caad8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\audo">
-      <UniqueIdentifier>{3a0044cc-1b7d-4ed5-a1a6-9074ed1b1769}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\base">
       <UniqueIdentifier>{551d5cf3-f4a6-49b9-832f-076a33cef817}</UniqueIdentifier>
     </Filter>
@@ -48,6 +45,9 @@
     </Filter>
     <Filter Include="ヘッダー ファイル\math">
       <UniqueIdentifier>{647f4977-924a-4954-923f-5619e5afc9a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\3d\audo">
+      <UniqueIdentifier>{3a0044cc-1b7d-4ed5-a1a6-9074ed1b1769}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -96,10 +96,10 @@
     <ClCompile Include="math\Matrix4.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="RailCamera.cpp">
+    <ClCompile Include="WorldTransform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="WorldTransform.cpp">
+    <ClCompile Include="RailCamera.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -144,7 +144,7 @@
       <Filter>ヘッダー ファイル\2d</Filter>
     </ClInclude>
     <ClInclude Include="audio\Audio.h">
-      <Filter>ヘッダー ファイル\audo</Filter>
+      <Filter>ヘッダー ファイル\3d\audo</Filter>
     </ClInclude>
     <ClInclude Include="base\DirectXCommon.h">
       <Filter>ヘッダー ファイル\base</Filter>

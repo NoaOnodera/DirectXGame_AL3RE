@@ -37,7 +37,7 @@ void GameScene::Initialize() {
 	
 
 
-	Vector3 position = { 10.0f,2.0f,50.0f };
+	//Vector3 position = { 10.0f,2.0f,50.0f };
 
 	Vector3 cameraPosisition = {0,0,-10.0f};
 	Vector3 cameraRotation = { 0,0,0 };
@@ -57,9 +57,9 @@ void GameScene::Initialize() {
 
 	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
-	railCamera_->Initialize(cameraPosisition, cameraRotation);
+	railCamera_->Initialize(Vector3(0,0,-50),Vector3(0,0,0));
 
-	player_->SetPlayer(railCamera_->GetWorldTransform());
+	player_->setRailCamera(railCamera_->GetWorldMatrix());
 	
 
 }
@@ -79,7 +79,7 @@ void GameScene::Update() {
 	viewProjection_.TransferMatrix();
 
 #ifdef _DEBUG
-	if (input_->TriggerKey(DIK_P)) {
+	/*if (input_->TriggerKey(DIK_P)) {
 		isDebugCameraActive_ = !isDebugCameraActive_;
 	}
 
@@ -101,7 +101,7 @@ void GameScene::Update() {
 		AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 		viewProjection_.UpdateMatrix();
 		viewProjection_.TransferMatrix();
-	}
+	}*/
 #endif
 	debugText_->SetPos(50, 70);
 	debugText_->Printf("eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);

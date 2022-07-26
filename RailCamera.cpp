@@ -1,22 +1,9 @@
 #include "RailCamera.h"
-
-
-RailCamera::RailCamera() {
-
-}
- 
-
-RailCamera::~RailCamera()
-{
-
-}
-
-
 void RailCamera::Initialize(const Vector3&position,const Vector3&rotation)
 {
 	//ワールドトランスフォームの初期化
 
-	worldTransform_.Initialize();
+	//worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_ = rotation;
 	//ビュープロジェクションの初期化
@@ -27,23 +14,26 @@ void RailCamera::Initialize(const Vector3&position,const Vector3&rotation)
 void RailCamera::Update()
 {
 
-	const Vector3 MoveTrans = {0, 0, 0};
-	const Vector3 MoveRota={ 0,0,0 };
+
+	
 //ワールドトランスフォームの座標の数値ヲ加算したりする(移動)
-	//worldTransform_.translation_ += Vector3(0, 0, 0.1f);
-//ワールドトランスフォームの角度の数値を加算したりする(回転)
-	  //woldTransform_.rotation_+=Vector3(0,0.1f,0);
+	worldTransform_.translation_ += Vector3(0, 0, 0.1f);
+
+	//ワールドトランスフォームの角度の数値を加算したりする(回転)
+	 //woldTransform_.rotation_+=Vector3(0,0.1f,0);
 	//ワールドトランスフォームのワールド行列の再計算
 
-	worldTransform_.translation_ += MoveTrans;
-	worldTransform_.rotation_ += MoveRota;
+	//worldTransform_.translation_ += MoveTrans;
+	//worldTransform_.rotation_ += MoveRota;
 
 
+
+	//worldTransform_.matWorld_.MatrixUpdate(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 
 	worldTransform_.MatrixUpdate();
+	//vectorMove_->MyUpdate(worldTransform_);
 
-
-	viewProjection_.eye = worldTransform_.translation_;
+	//viewProjection_.eye = worldTransform_.translation_;
 	//ワールド行列の平行移動成分を取得
 	viewProjection_.eye.x = worldTransform_.matWorld_.m[3][0];
 	viewProjection_.eye.y = worldTransform_.matWorld_.m[3][1];

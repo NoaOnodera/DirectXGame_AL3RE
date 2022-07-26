@@ -36,7 +36,7 @@ public:
 
 	//’eƒŠƒXƒg‚ðŽæ“¾
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
-	void SetPlayer(WorldTransform* worldTransform) { worldTransform_.parent_ = worldTransform; }
+	void setRailCamera(const WorldTransform& worldTransform) { worldTransform_.parent_ = &worldTransform; }
 private:
 
 	

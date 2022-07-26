@@ -108,7 +108,7 @@ void Player::Update() {
 			bullet->Update();
 		}
 
-		worldTransform_.MatrixUpdate();
+		worldTransform_.matWorld_.MatrixUpdate(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 	}
 
 	
