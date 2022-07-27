@@ -1,5 +1,5 @@
 #include "RailCamera.h"
-void RailCamera::Initialize(const Vector3&position,const Vector3&rotation)
+void RailCamera::Initialize(const Vector3& position,const Vector3& rotation)
 {
 	//ワールドトランスフォームの初期化
 
@@ -9,6 +9,7 @@ void RailCamera::Initialize(const Vector3&position,const Vector3&rotation)
 	//ビュープロジェクションの初期化
 	viewProjection_.farZ = 2000.0f;
 	viewProjection_.Initialize();
+	worldTransform_.Initialize();
 }
 
 void RailCamera::Update()
@@ -30,8 +31,8 @@ void RailCamera::Update()
 
 	//worldTransform_.matWorld_.MatrixUpdate(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 
-	worldTransform_.MatrixUpdate();
-	//vectorMove_->MyUpdate(worldTransform_);
+	//worldTransform_.MatrixUpdate();
+	vectorMove_->MyUpdate(worldTransform_);
 
 	//viewProjection_.eye = worldTransform_.translation_;
 	//ワールド行列の平行移動成分を取得
@@ -40,15 +41,15 @@ void RailCamera::Update()
 	viewProjection_.eye.z = worldTransform_.matWorld_.m[3][2];
 
 	Vector3 forward(0, 0, 1);
-	//forward = MathUtility::Vector3TransformNormal(forward,worldTransform_.matWorld_);
+	forward = MathUtility::Vector3TransformNormal(forward,worldTransform_.matWorld_);
 
-	forward = worldTransform_.matWorld_.direction(forward, worldTransform_.matWorld_);
+	//forward = worldTransform_.matWorld_.direction(forward, worldTransform_.matWorld_);
 	viewProjection_.target =viewProjection_.eye+forward;
 
 	Vector3 up(0, 1, 0);
 
-	//viewProjection_.up = MathUtility::Vector3TransformNormal(up,worldTransform_.matWorld_);
-	viewProjection_.up = worldTransform_.matWorld_.direction(up, worldTransform_.matWorld_);
+	viewProjection_.up = MathUtility::Vector3TransformNormal(up,worldTransform_.matWorld_);
+	//viewProjection_.up = worldTransform_.matWorld_.direction(up, worldTransform_.matWorld_);
 
 	//ビュープロジェクションの更新と定数バッファへの転送
 	viewProjection_.UpdateMatrix();

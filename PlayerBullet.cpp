@@ -22,8 +22,10 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
+	Vector3 pos = { 0,0,3 };
+    
 	//引数で受け取った初期座標をセット
-	worldTransform_.translation_ = position;
+	worldTransform_.translation_ = position+pos;
 
 	vectorMove_ = new VectorMove();
 

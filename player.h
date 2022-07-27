@@ -11,6 +11,7 @@
 #include "PlayerBullet.h"
 #include <memory>
 #include <list>
+#include "Vector3.h"
 
 
 class Player {
@@ -35,7 +36,7 @@ public:
 
 
 	//’eƒŠƒXƒg‚ðŽæ“¾
-	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return playerbullets_; }
 	void setRailCamera(const WorldTransform& worldTransform) { worldTransform_.parent_ = &worldTransform; }
 private:
 
@@ -60,7 +61,7 @@ private:
 	VectorMove* vectorMove_ = nullptr;
 
 	
-	std::list<std::unique_ptr<PlayerBullet>>bullets_;
+	std::list<std::unique_ptr<PlayerBullet>>playerbullets_;
 	
 	
 	

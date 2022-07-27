@@ -84,11 +84,11 @@ void Enemy::ApprochMove()
 		eFireTime = kFireInterval;
 	}
 
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+	/*for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
 		if (bullet) {
 			bullet->Update();
 		}
-	}
+	}*/
 
 	/*if (worldTransform_.translation_.z < 0.0f) {
 		phase_ = Phase::Leave;

@@ -45,22 +45,17 @@ void GameScene::Initialize() {
 	skydome_ = new Skydome();//天球
 	skydome_->Initialize(modelSkydome_);//天球の初期化
 	player_ = std::make_unique<Player>();
-	//レールカメラの生成
-	railCamera_ = std::make_unique<RailCamera>();
-	
-	//自キャラの初期化
-	//void Initialize(Model * model, uint32_t textureHandle);
+	railCamera_ = std::make_unique<RailCamera>();//レールカメラの生成
 	enemy_ = std::make_unique<Enemy>();
 	enemy_->SetPlayer(player_.get());
-
 
 
 	player_->Initialize(model_, textureHandle_);
 	enemy_->Initialize(model_, textureHandle_);
 	railCamera_->Initialize(Vector3(0,0,-50),Vector3(0,0,0));
 
+
 	player_->setRailCamera(railCamera_->GetWorldMatrix());
-	
 
 }
 
