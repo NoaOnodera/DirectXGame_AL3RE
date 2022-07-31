@@ -3,6 +3,7 @@
 #include"VectorMove.h"
 #include"Player.h"
 #include<cassert>
+#include "GameScene.h"
 
 Enemy::Enemy() {
 
@@ -11,7 +12,7 @@ Enemy::~Enemy() {
 
 }
 
-void Enemy::Initialize(Model* model, uint32_t textureHandle)
+void Enemy::Initialize(Model* model, WorldTransform worldTransform)
 {
 	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
@@ -20,9 +21,12 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle)
 	//引数として受け取ったデータをメンバ変数に記録する
 	this->model_ = model;
 
+
+	
 	textureHandle_ = TextureManager::Load("player_shade.jpg");
 	debugText_ = DebugText::GetInstance();
 
+	worldTransform_.translation_ = worldTransform_.translation_;
 	vectorMove_ = new VectorMove();
 
 
@@ -113,9 +117,9 @@ void Enemy::Update()
 	
 	}
 
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Update();
-	}
+	//for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
+	//	bullet->Update();
+	//}
 	vectorMove_->MyUpdate(worldTransform_);
 
 	//行列更新
@@ -136,11 +140,45 @@ void Enemy::Draw(ViewProjection& viewProjection)
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		if (bullet) {
-			bullet->Draw(viewProjection);
-		}
-	}
+}
+
+
+
+void Enemy::Fire()
+{
+
+	//assert(player_);
+	//弾の速度
+	const float eBulletSpeed = 0.01f;
+
+	
+	////弾を生成し、初期化
+	////PlayerBullet* newBullet = new PlayerBullet();
+	//Vector3 position = worldTransform_.translation_;
+	////速度ベクトルを自機の向きに合わせて回転させる
+	
+
+	Vector3 playerVec = player_->GetWorldPosition();
+	Vector3 enemyVec = GetWorldPosition();
+	Vector3 Difference = playerVec;
+	Difference -= enemyVec;
+	Vector3 normalize(Difference);
+	Difference *= eBulletSpeed;
+	Vector3 velocity(Difference);
+	velocity = MathUtility::Vector3TransformNormal(velocity, worldTransform_.matWorld_);
+	//弾を生成し、初期化
+	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+
+	//弾を登録する
+		//bullets_.push_back(std::move(newBullet));
+	gameScene_->AddEnemyBullet(move(newBullet));
+}
+
+
+void Enemy::OnCollision()
+{
+	isDead_ = TRUE;
 }
 
 Vector3 Enemy::GetWorldPosition()
@@ -152,42 +190,6 @@ Vector3 Enemy::GetWorldPosition()
 	worldPos.z = worldTransform_.translation_.z;
 
 	return worldPos;
-
-}
-void Enemy::Fire()
-{
-
-	assert(player_);
-	//弾の速度
-	const float eBulletSpeed = 0.01f;
-
-	////弾を生成し、初期化
-	////PlayerBullet* newBullet = new PlayerBullet();
-	//Vector3 position = worldTransform_.translation_;
-	////速度ベクトルを自機の向きに合わせて回転させる
-	//velocity = MathUtility::Vector3TransformNormal(velocity, worldTransform_.matWorld_);
-
-	Vector3 playerVec = player_->GetWorldPosition();
-	Vector3 enemyVec = GetWorldPosition();
-	Vector3 Difference = playerVec;
-	Difference -= enemyVec;
-	Vector3 normalize(Difference);
-	Difference *= eBulletSpeed;
-	Vector3 velocity(Difference);
-
-	//弾を生成し、初期化
-	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
-
-	//弾を登録する
-		//bullets_.push_back(std::move(newBullet));
-	bullets_.push_back(std::move(newBullet));
-}
-
-
-void Enemy::OnCollision()
-{
-
 }
 Vector3 Enemy::GetRadius()
 {

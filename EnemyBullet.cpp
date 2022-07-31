@@ -1,7 +1,6 @@
-
 #include "EnemyBullet.h"
 #include<cassert>
-
+#include "DebugText.h"
 
 
 EnemyBullet::EnemyBullet() {
@@ -40,7 +39,7 @@ void EnemyBullet::Update() {
 	worldTransform_.translation_ += velocity_;
 	//ŽžŠÔŒo‰ß‚Ådeath
 	if (--deathTimer_ <= 0) {
-		isDead_ = true;
+		isDead_ = TRUE;
 	}
 
 }

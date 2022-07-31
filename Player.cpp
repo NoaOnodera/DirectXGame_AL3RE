@@ -1,6 +1,6 @@
 #include <cassert>
 #include"Player.h"
-
+#include "MathUtility.h"
 
 using namespace std;
 Player::Player() {
@@ -54,7 +54,7 @@ void Player::Update() {
 	{
 
 		//ƒfƒXƒtƒ‰ƒO‚Ì—§‚Á‚½’e‚ğíœ
-		playerbullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
+		bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
 			{
 				return bullet->IsDead();
 			});
@@ -107,7 +107,7 @@ void Player::Update() {
 			//ƒLƒƒƒ‰ƒNƒ^@UŒ‚ˆ—
 		Attack();
 
-		for (std::unique_ptr<PlayerBullet>& bullet : playerbullets_) {
+		for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 			bullet->Update();
 		}
 
@@ -127,7 +127,7 @@ void Player::Draw(ViewProjection&viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	//’e•`‰æ
-	for (std::unique_ptr<PlayerBullet>& bullet : playerbullets_) {
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
 }
@@ -150,7 +150,7 @@ void Player::Attack() {
  		newBullet->Initialize(model_,position, velocity);
 	
 	//’e‚ğ“o˜^‚·‚é
-		playerbullets_.push_back(std::move(newBullet));
+		bullets_.push_back(std::move(newBullet));
 	}
 }
 void Player::OnCollision()

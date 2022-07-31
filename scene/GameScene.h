@@ -17,9 +17,16 @@
 #include "Skydome.h"
 #include "RailCamera.h"
 #include"Collider.h"
+#include <list>
+#include <memory>
+#include <sstream>
+#include <cassert>
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
+/// 
+using namespace std;
 class GameScene {
 
   public: // メンバ関数
@@ -53,7 +60,25 @@ class GameScene {
 	/// </summary>
 	void CheckAllCollisions();
 
-	
+	void EnemyFire();
+
+	void BulletUpdate();
+
+	void AddEnemyBullet(std::unique_ptr<EnemyBullet>enemyBullet)
+	{
+		enemyBullets_.push_back(move(enemyBullet));
+	}
+
+	std::stringstream enemyPopComands;
+
+	void PEnemy(Vector3 v);
+
+	void LoadEnemyPopData();
+
+	void UpdateEnemyPopComands();
+
+
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -66,14 +91,20 @@ class GameScene {
 	ViewProjection viewProjection_;//ビュープロジェクション
 	WorldTransform worldTransform_;
     std::unique_ptr<Player>player_;
-	std::unique_ptr<Enemy>enemy_;
-	std::unique_ptr<EnemyBullet>enemyBullet_;
+	
 	std::unique_ptr<RailCamera>railCamera_;
 	Skydome* skydome_ = nullptr;
 	Model* modelSkydome_ = nullptr;
 
+
+
+	list<unique_ptr<Enemy>>enemys_;
 	
-	bool isDebugCameraActive_ = false;
+	list<unique_ptr<EnemyBullet>>enemyBullets_;
+	
+
+	bool isWait = false;
+	int32_t waitTimer = 0;
 	
 	
 };
