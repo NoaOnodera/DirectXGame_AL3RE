@@ -1,5 +1,6 @@
 #include "Skydome.h"
 #include <cassert>
+
 Skydome::Skydome()
 {
 
@@ -9,15 +10,17 @@ Skydome::~Skydome()
 {
 	delete vectorMove_;
 }
+
 void Skydome::Initialize(Model* model)
 {
 	worldTransform_.Initialize();
+
 	assert(model);
 
      model_ = model;
 
-
 	vectorMove_ = new VectorMove();
+
 	debugText_ = DebugText::GetInstance();
 
 	worldTransform_.translation_ = { 0,0,0 };

@@ -18,13 +18,19 @@ class Player {
 public:
 
 
-	 Player();
-    ~Player();
-	void Rotate();
-	void Initialize(Model*model,uint32_t textureHandle);
-	void Update();
-	void Draw(ViewProjection&viewProjection);
-	void Attack();
+	 Player();//コンストラクター
+
+    ~Player();//デストラクター
+
+	void Rotate();//プレイヤー回転処理
+
+	void Initialize(Model*model,uint32_t textureHandle,WorldTransform worldTransform_,const Vector3& position);//初期化
+
+	void Update();//更新
+
+	void Draw(ViewProjection&viewProjection);//描画
+
+	void Attack();//攻撃
 
 	//衝突を検出したら呼び出しされるコールバック関数
 	void OnCollision();
@@ -33,14 +39,13 @@ public:
 	Vector3 GetWorldPosition();
 	Vector3 GetRadius();
 
-
-
 	//弾リストを取得
-	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return playerbullets_; }
-	void setRailCamera(const WorldTransform& worldTransform) { worldTransform_.parent_ = &worldTransform; }
-private:
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullets() { return bullets_; }
 
-	
+	void setRailCamera(const WorldTransform& worldTransform) 
+	{ worldTransform_.parent_ = &worldTransform; }//レールカメラ親子関係
+
+private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//モデル
@@ -51,19 +56,10 @@ private:
 	Input* input_ = nullptr;
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
+
+	std::list<std::unique_ptr<PlayerBullet>>bullets_;
 	
 	MyMath* myMath_ = nullptr;
     
-
-
-
-	
 	VectorMove* vectorMove_ = nullptr;
-
-	
-	std::list<std::unique_ptr<PlayerBullet>>playerbullets_;
-	
-	
-	
-	
 };

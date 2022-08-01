@@ -8,12 +8,14 @@ class Skydome {
 
 public:
 	Skydome();
+
 	~Skydome();
+
 	void Initialize(Model* model);
 
-	void Draw(ViewProjection& viewProjection);
-
 	void Update();
+
+	void Draw(ViewProjection& viewProjection);
 private:
 	WorldTransform worldTransform_;
 

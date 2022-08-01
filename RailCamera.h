@@ -6,27 +6,23 @@
 #include "player.h"
 class RailCamera {
 public:
-	void Initialize(const Vector3&position,const Vector3&rotation);
+
+	RailCamera();
+
+	~RailCamera();
+
+	void Initialize(const Vector3& position, const Vector3& rotation);
 
 	void Update();
-
-
-
 	//ビュープロジェクションを取得
 	const ViewProjection& GetViewProjection() { return viewProjection_; }
-
 	//ワールド行列の取得
-    const WorldTransform& GetWorldMatrix()const { return worldTransform_; }
-
-	//WorldTransform* GetWorldTransform() { return &worldTransform_; }
-
-	
+	const WorldTransform& GetWorldMatrix()const { return worldTransform_; }
 private:
-//ワールド変換データ
+	//ワールド変換データ
 	WorldTransform worldTransform_;
-//ビュープロジェクション
+	//ビュープロジェクション
 	ViewProjection viewProjection_;
-
 	//デバッグテキスト
 	DebugText* debugText_ = nullptr;
 

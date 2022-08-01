@@ -6,9 +6,8 @@ PlayerBullet::PlayerBullet() {
 
 }
 
-
 PlayerBullet::~PlayerBullet() {
-	
+	delete vectorMove_;
 }
 
 void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
@@ -16,22 +15,18 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	assert(model);
 
 	model_ = model;
+	//引数で受け取った速度をメンバ変数に代入
+	velocity_ = velocity;
 	//テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("black.jpg");
 
-
-	//ワールドトランスフォームの初期化
-	worldTransform_.Initialize();
 	Vector3 pos = { 0,0,3 };
-    
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position+pos;
 
 	vectorMove_ = new VectorMove();
-
-
-	//引数で受け取った速度をメンバ変数に代入
-	velocity_ = velocity;
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
 }
 
 void PlayerBullet::Update() {
@@ -42,8 +37,8 @@ void PlayerBullet::Update() {
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
-
 }
+
 void PlayerBullet::Draw(const ViewProjection& viewProjection) {
 //モデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);

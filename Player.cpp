@@ -1,46 +1,44 @@
 #include <cassert>
 #include"Player.h"
-
-
-using namespace std;
+//コンストラクター
 Player::Player() {
 
 }
-
-
+//デストラクター
 Player::~Player() {
 	delete vectorMove_;
 	delete myMath_;
 }
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+//初期化
+void Player::Initialize(Model* model, uint32_t textureHandle, WorldTransform worldTransform_, const Vector3& position) {
 
 	//NULLポインタチェック
 	assert(model);
 	//引数として受け取ったデータをメンバ変数に記録する
-	this->model_ = model;
-	//シングルトンインスタンスを取得する
-
+	model_ = model;
+	textureHandle_ = textureHandle;
 	textureHandle_ = TextureManager::Load("mario.jpg");
+
 	input_ = Input::GetInstance();
+
 	debugText_ = DebugText::GetInstance();
-	
 
-	
-	worldTransform_.Initialize();
-
+	//worldTransform_.translation_ = position;
 	myMath_ = new MyMath();
+
+
 
 	worldTransform_.scale_ = { 1,1,1 };
 
 	worldTransform_.translation_ = { 0,0,10 };
 
-
+	worldTransform_.Initialize();
 }
-
 
 void Player::Rotate() {
 
 	const float kRotateSpeed = 0.05f;
+
 	if (input_->PushKey(DIK_U)) {
 		worldTransform_.rotation_.y -= kRotateSpeed;
 	}
@@ -49,25 +47,20 @@ void Player::Rotate() {
 	}
 }
 
-
 void Player::Update() {
 	{
 
 		//デスフラグの立った弾を削除
-		playerbullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
+		bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
 			{
 				return bullet->IsDead();
 			});
-		Vector3 move = { 0, 0, 0 };
 
+		Vector3 move = { 0, 0, 0 };
 
 		Rotate();
 
 		const float kCharacterSpeed = 0.2f;
-
-
-
-
 
 		if (input_->PushKey(DIK_LEFT)) {
 			move = { -kCharacterSpeed, 0, 0 };
@@ -103,54 +96,53 @@ void Player::Update() {
 
 		//worldTransform_.matWorld_.MatrixUpdate(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
 	}
-	
-			//キャラクタ　攻撃処理
-		Attack();
 
-		for (std::unique_ptr<PlayerBullet>& bullet : playerbullets_) {
-			bullet->Update();
-		}
+	//キャラクタ　攻撃処理
+	Attack();
+
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
+		bullet->Update();
+	}
 
 
-		vectorMove_->MyUpdate(worldTransform_);
-		worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
-	
+	worldTransform_.matWorld_ *= worldTransform_.parent_->matWorld_;
+	vectorMove_->MyUpdate(worldTransform_);
+
+
 	worldTransform_.TransferMatrix();
-	
 
-	
 }
 
 
 
-void Player::Draw(ViewProjection&viewProjection) {
+void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
 	//弾描画
-	for (std::unique_ptr<PlayerBullet>& bullet : playerbullets_) {
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
 }
 
 
 void Player::Attack() {
-	if (input_->PushKey(DIK_SPACE)) 
+	if (input_->PushKey(DIK_SPACE))
 	{
-       //弾の速度
+		//弾の速度
 		const float kBulletSpeed = 0.5f;
-		Vector3 velocity(0,0,kBulletSpeed);
+		Vector3 velocity(0, 0, kBulletSpeed);
 		//弾を生成し、初期化
 		//PlayerBullet* newBullet = new PlayerBullet();
-        //Vector3 position =worldTransform_.translation_;
+		//Vector3 position =worldTransform_.translation_;
 		Vector3 position = this->GetWorldPosition();
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = MathUtility::Vector3TransformNormal(velocity, worldTransform_.matWorld_);
 		//弾を生成し、初期化
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
- 		newBullet->Initialize(model_,position, velocity);
-	
-	//弾を登録する
-		playerbullets_.push_back(std::move(newBullet));
+		newBullet->Initialize(model_, position, velocity);
+
+		//弾を登録する
+		bullets_.push_back(std::move(newBullet));
 	}
 }
 void Player::OnCollision()

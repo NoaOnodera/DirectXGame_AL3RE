@@ -1,9 +1,16 @@
 #include "RailCamera.h"
+
+RailCamera::RailCamera()
+{
+
+}
+
+RailCamera::~RailCamera()
+{
+
+}
 void RailCamera::Initialize(const Vector3& position,const Vector3& rotation)
 {
-	//ワールドトランスフォームの初期化
-
-	//worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.rotation_ = rotation;
 	//ビュープロジェクションの初期化
@@ -13,25 +20,10 @@ void RailCamera::Initialize(const Vector3& position,const Vector3& rotation)
 }
 
 void RailCamera::Update()
-{
-
-
-	
+{	
 //ワールドトランスフォームの座標の数値ヲ加算したりする(移動)
 	worldTransform_.translation_ += Vector3(0, 0, 0.1f);
 
-	//ワールドトランスフォームの角度の数値を加算したりする(回転)
-	 //woldTransform_.rotation_+=Vector3(0,0.1f,0);
-	//ワールドトランスフォームのワールド行列の再計算
-
-	//worldTransform_.translation_ += MoveTrans;
-	//worldTransform_.rotation_ += MoveRota;
-
-
-
-	//worldTransform_.matWorld_.MatrixUpdate(worldTransform_.scale_,worldTransform_.rotation_,worldTransform_.translation_);
-
-	//worldTransform_.MatrixUpdate();
 	vectorMove_->MyUpdate(worldTransform_);
 
 	//viewProjection_.eye = worldTransform_.translation_;
@@ -53,7 +45,7 @@ void RailCamera::Update()
 
 	//ビュープロジェクションの更新と定数バッファへの転送
 	viewProjection_.UpdateMatrix();
-
+	viewProjection_.TransferMatrix();
 
 	DebugText* debugText_ = DebugText::GetInstance();
 
